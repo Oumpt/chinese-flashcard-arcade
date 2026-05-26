@@ -1271,7 +1271,7 @@ function startStrokePractice() {
                     // โหลดตัวถัดไป
                     loadStrokeCharacter(true);
                 } else {
-                    // เขียนครบถ้วนทั้งคำศัพท์!
+                    // เขียนครบถ้วนทั้งคำศัพท์! แสดง popup สั้นๆ แล้วปิด modal อัตโนมัติ
                     const fullWord = strokeWordChars.join("");
                     Swal.fire({
                         html: `
@@ -1283,14 +1283,16 @@ function startStrokePractice() {
                                 </div>
                             </div>
                         `,
-                        confirmButtonText: 'ตกลง',
+                        timer: 1800,
+                        showConfirmButton: false,
                         customClass: {
                             popup: 'retro-swal-popup'
                         },
                         allowOutsideClick: false
+                    }).then(() => {
+                        closeStrokeModal();
                     });
-                    document.getElementById('stroke-hint').innerText = "ยินดีด้วยงับ! เขียนถูกต้องสมบูรณ์ทั้งคำแล้ว กดปิดหน้าต่างหรือเริ่มใหม่ได้เลยครับ";
-                    // รีเซ็ตดัชนีเพื่อให้ฝึกซ้ำได้
+                    // รีเซ็ตดัชนี
                     strokeCharIndex = 0;
                     updateStrokeModalHeader();
                 }
