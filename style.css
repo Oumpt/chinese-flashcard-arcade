@@ -2333,7 +2333,7 @@ body.dark-theme .stat-badge {
 .match-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: 12px;
     max-width: 580px;
     margin: 0 auto;
     padding: 10px;
@@ -2342,7 +2342,8 @@ body.dark-theme .stat-badge {
 @media (max-width: 600px) {
     .match-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        gap: 8px;
+        padding: 6px;
     }
 }
 
@@ -2428,8 +2429,13 @@ body.dark-theme .match-card-front {
 .match-card-text {
     font-size: 1.15rem;
     font-weight: 700;
-    word-break: break-all;
+    word-break: break-word;
     line-height: 1.3;
+    text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
 }
 
 /* For large Hanzi chars */
@@ -2440,6 +2446,23 @@ body.dark-theme .match-card-front {
 
 body.dark-theme .match-card-text.hanzi-char {
     color: #ef5350;
+}
+
+@media (max-width: 600px) {
+    .match-card-text {
+        font-size: 0.72rem;
+        line-height: 1.25;
+        -webkit-line-clamp: 3;
+    }
+    .match-card-text.hanzi-char {
+        font-size: 1.5rem;
+    }
+    .match-card-front, .match-card-back {
+        padding: 4px;
+    }
+    .match-card-back {
+        font-size: 1.5rem;
+    }
 }
 
 .match-card-img {
