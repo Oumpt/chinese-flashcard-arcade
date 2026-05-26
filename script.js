@@ -1271,30 +1271,28 @@ function startStrokePractice() {
                     // โหลดตัวถัดไป
                     loadStrokeCharacter(true);
                 } else {
-                    // เขียนครบถ้วนทั้งคำศัพท์! แสดง popup สั้นๆ แล้วปิด modal อัตโนมัติ
+                    // เขียนครบถ้วน: ปิด modal ก่อน แล้วค่อยแสดง popup สั้นๆ
                     const fullWord = strokeWordChars.join("");
-                    Swal.fire({
-                        html: `
-                            <div class="swal-retro-content">
-                                <div class="retro-coin-anim">🎉</div>
-                                <h2 class="retro-score-gain" style="color: #ffb300; animation: none;">EXCELLENT!</h2>
-                                <div class="correct-reveal-box" style="font-size: 1.05rem; border-color: #ffb300; max-width: 100%;">
-                                    คุณวาดเขียนคำว่า "${fullWord}" <br>ถูกต้องครบถ้วนสมบูรณ์แล้วครับ!
+                    closeStrokeModal();
+                    setTimeout(() => {
+                        Swal.fire({
+                            html: `
+                                <div class="swal-retro-content">
+                                    <div class="retro-coin-anim">🎉</div>
+                                    <h2 class="retro-score-gain" style="color: #ffb300; animation: none;">EXCELLENT!</h2>
+                                    <div class="correct-reveal-box" style="font-size: 1.05rem; border-color: #ffb300; max-width: 100%;">
+                                        คุณวาดเขียนคำว่า "${fullWord}" <br>ถูกต้องครบถ้วนสมบูรณ์แล้วครับ!
+                                    </div>
                                 </div>
-                            </div>
-                        `,
-                        timer: 1800,
-                        showConfirmButton: false,
-                        customClass: {
-                            popup: 'retro-swal-popup'
-                        },
-                        allowOutsideClick: false
-                    }).then(() => {
-                        closeStrokeModal();
-                    });
-                    // รีเซ็ตดัชนี
-                    strokeCharIndex = 0;
-                    updateStrokeModalHeader();
+                            `,
+                            timer: 1800,
+                            showConfirmButton: false,
+                            customClass: {
+                                popup: 'retro-swal-popup'
+                            },
+                            allowOutsideClick: true
+                        });
+                    }, 150);
                 }
             }
         });
