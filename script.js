@@ -331,11 +331,7 @@ function startTheGame() {
         setTimeout(() => {
             startScreen.style.display = 'none';
             
-            // เปิดแถบเมนูด้านซ้ายเพื่อเชิญชวนให้ผู้เล่นเลือกบทเรียน
-            const sidebar = document.getElementById('sidebar');
-            if (sidebar && sidebar.classList.contains('closed')) {
-                toggleSidebar();
-            }
+// No auto‑open sidebar after start – user opens it manually if desired
         }, 800); // ดีเลย์ตรงกับ CSS transition (0.8s)
     }, 600);
 }
