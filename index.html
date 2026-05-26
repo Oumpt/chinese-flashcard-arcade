@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chinese Learning Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&family=Noto+Sans+Thai:wght@300;400;600&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 🎮 Retro Start Screen Overlay (Mario Style) -->
+    <div id="start-screen-overlay" class="start-screen">
+        <div class="pixel-clouds">
+            <div class="cloud cloud-1"></div>
+            <div class="cloud cloud-2"></div>
+            <div class="cloud cloud-3"></div>
+        </div>
+        
+        <div class="start-content">
+            <div class="retro-logo">
+                <span class="logo-sub">SUPER</span>
+                <h1 class="logo-main">CHINESE<br>QUEST</h1>
+                <div class="logo-lang-wrapper">
+                    <span class="logo-lang">汉语</span>
+                </div>
+            </div>
+            
+            <div class="retro-menu">
+                <button class="retro-btn" onclick="startTheGame()">
+                    <i class="fa-solid fa-play blink-icon"></i> PRESS START
+                </button>
+                
+                <div class="retro-control-hint">
+                    <p><i class="fa-solid fa-gamepad"></i> SELECT CATEGORY & PLAY</p>
+                </div>
+            </div>
+            
+            <div class="retro-footer">
+                <p>© 2026 RETRO NINTENDO STYLE</p>
+            </div>
+        </div>
+        
+        <div class="pixel-hills">
+            <div class="hill hill-1"></div>
+            <div class="hill hill-2"></div>
+        </div>
+    </div>
+
+    <div class="app-wrapper">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header" onclick="showWelcomeDashboard()" style="cursor: pointer;" title="กลับไปหน้าหลักเลือกด่าน">
+                <i class="fa-solid fa-yin-yang logo-icon"></i>
+                <h2>Chinese Hub</h2>
+                <button class="close-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            
+            <div class="sidebar-menu">
+                <p class="menu-label">📚 เลือกหมวดหมู่คำศัพท์</p>
+                <div id="category-buttons" class="category-list">
+                    </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <p>มินิโปรเจคภาษาจีนพื้นฐาน</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <nav class="topbar">
+                <button class="toggle-btn" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <h1 class="topbar-title" id="current-category-title">STAGE SELECT: เลือกด่าน</h1>
+            </nav>
+
+            <!-- 🎮 Retro Welcome Dashboard (Stage Select Screen) -->
+            <div id="welcome-dashboard" class="workspace welcome-dashboard-area fade-in">
+                <div class="welcome-card content-card">
+                    <div class="retro-banner-title">
+                        <span class="logo-sub">STAGE SELECT</span>
+                        <h2 class="logo-main">CHINESE QUEST</h2>
+                    </div>
+                    
+                    <p class="welcome-subtitle">กรุณาเลือกด่านหมวดหมู่คำศัพท์ด้านล่างเพื่อเริ่มการผจญภัย:</p>
+                    
+                    <!-- 🐼 Retro Mascot Guide Area -->
+                    <div class="mascot-container">
+                        <div class="retro-speech-bubble" id="mascot-speech">
+                            你好! ยินดีต้อนรับสู่แดนเรียนรู้ภาษาจีนนะงับ! 🐼
+                        </div>
+                        <div class="mascot-wrapper">
+                            <img src="images/mascot.png" alt="Panda Mascot" class="mascot-img">
+                        </div>
+                    </div>
+                    
+                    <div class="stage-select-grid" id="stage-select-grid">
+                        <!-- ปุ่มด่าน World 1-6 จะโหลดจาก JS อัตโนมัติ -->
+                    </div>
+                    
+                    <div class="welcome-guide">
+                        <h3><i class="fa-solid fa-scroll"></i> GUILD QUEST GUIDE (คู่มือภารกิจ)</h3>
+                        <ul class="guide-list">
+                            <li><span class="bullet">▶</span> <b>FLASHCARD:</b> แฟลชการ์ดฟังเสียงอ่านและคัดลายมือตามลำดับขีดจีน</li>
+                            <li><span class="bullet">▶</span> <b>QUIZ GAME:</b> เกมตอบคำศัพท์จำกัดเวลา 15 วินาทีสะสมคะแนนสูงสุด</li>
+                            <li><span class="bullet">▶</span> <b>GLOSSARY:</b> คลังสืบค้นคำแปล พินอิน และตัวจีนทั้งหมด</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="learning-workspace" class="workspace hidden">
+                
+                <div class="workspace-header">
+                    <div class="mode-switch-container">
+                        <div class="mode-switch">
+                            <button id="btn-flashcard" class="mode-btn active" onclick="switchMode('flashcard')">
+                                <i class="fa-regular fa-clone"></i> โหมดแฟลชการ์ด
+                            </button>
+                            <button id="btn-quiz" class="mode-btn" onclick="switchMode('quiz')">
+                                <i class="fa-solid fa-gamepad"></i> โหมดควิซเกม
+                            </button>
+                            <button id="btn-glossary" class="mode-btn" onclick="switchMode('glossary')">
+                                <i class="fa-solid fa-book-open"></i> คลังคำศัพท์
+                            </button>
+                            <button id="btn-match" class="mode-btn" onclick="switchMode('match')">
+                                <i class="fa-solid fa-shapes"></i> เกมจับคู่
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="global-settings">
+                        <button id="theme-toggle" class="theme-toggle-btn" onclick="toggleTheme()" title="สลับโหมดมืด/สว่าง">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                        
+                        <label class="auto-speak-toggle">
+                            <input type="checkbox" id="auto-speak-checkbox" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-text"><i class="fa-solid fa-volume-high"></i> ออกเสียงอัตโนมัติ</span>
+                        </label>
+                        
+                        <label class="sound-toggle">
+                            <input type="checkbox" id="sound-checkbox" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-text"><i class="fa-solid fa-bell"></i> เสียงเอฟเฟกต์</span>
+                        </label>
+                        
+                        <label class="bgm-toggle">
+                            <input type="checkbox" id="bgm-checkbox" checked onchange="toggleBGM()">
+                            <span class="toggle-slider"></span>
+                            <span class="toggle-text"><i class="fa-solid fa-music"></i> ดนตรีประกอบ</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="content-card">
+                    <div id="flashcard-area" class="fade-in">
+                        <div class="flashcard-wrapper" onclick="flipCard()">
+                            <div class="flashcard-3d" id="flashcard">
+                                <div class="card-face card-front">
+                                    <h1 class="hanzi-text" id="card-hanzi">字</h1>
+                                    
+                                    <button id="flashcard-tts-btn" class="tts-btn" onclick="speakText(document.getElementById('card-hanzi').innerText, event)">
+                                        <i class="fa-solid fa-volume-high"></i>
+                                    </button>
+
+                                    <button id="stroke-btn" class="stroke-btn hidden" onclick="openStrokeModal(event)" title="ฝึกลำดับขีดคัดอักษรจีน">
+                                        <i class="fa-solid fa-pen-nib"></i> ฝึกเขียน
+                                    </button>
+
+                                    <p class="pinyin-text" id="card-pinyin">pīn yīn</p>
+                                    <div class="click-hint"><i class="fa-solid fa-hand-pointer"></i> คลิกการ์ดเพื่อพลิกดูเฉลย</div>
+                                </div>
+                                <div class="card-face card-back">
+                                    <img id="card-image" class="card-vocab-image hidden" src="" alt="ภาพประกอบคำศัพท์">
+                                    <p class="meaning-text" id="card-meaning">ความหมาย</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-controls">
+                            <button onclick="prevCard()" class="control-btn"><i class="fa-solid fa-chevron-left"></i> ก่อนหน้า</button>
+                            <span id="card-progress" class="progress-text">1 / 10</span>
+                            <button onclick="nextCard()" class="control-btn">ถัดไป <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                        <div class="quick-switch-container">
+                            <button onclick="switchMode('quiz')" class="quick-switch-btn">
+                                <i class="fa-solid fa-gamepad"></i> ไปทำควิซเกมทดสอบความรู้ <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="quiz-area" class="hidden fade-in">
+                        <div class="quiz-header">
+                            <div class="progress-badge"><i class="fa-solid fa-gamepad"></i> STAGE <span id="quiz-progress">01</span> / <span id="total-questions">10</span></div>
+                            <div class="score-badge"><i class="fa-solid fa-star"></i> SCORE: <span id="score">00</span></div>
+                        </div>
+                        
+                        <div class="quiz-timer-container">
+                            <div class="quiz-timer-bar" id="quiz-timer-bar"></div>
+                        </div>
+                        
+                        <div class="question-container">
+                            <button id="quiz-tts-btn" class="tts-btn" onclick="speakText(document.getElementById('quiz-question').innerText, event)">
+                                <i class="fa-solid fa-volume-high"></i>
+                            </button>
+
+                            <p class="question-label" id="quiz-question-label">คำศัพท์ภาษาจีนคำนี้ แปลว่าอะไร?</p>
+                            <h1 class="question-word" id="quiz-question">字</h1>
+                        </div>
+
+                        <div class="options-grid" id="choices-grid">
+                        </div>
+
+                        <div class="quiz-footer">
+                            <div class="quiz-nav-buttons">
+                                <button class="nav-btn" onclick="prevQuizQuestion()"><i class="fa-solid fa-chevron-left"></i> ย้อนกลับ</button>
+                                <button class="nav-btn" onclick="nextQuizQuestion()">ถัดไป <i class="fa-solid fa-chevron-right"></i></button>
+                            </div>
+                            <div class="quiz-action-buttons">
+                                <button id="restart-quiz-btn" class="restart-btn hidden" onclick="restartQuiz()">
+                                    <i class="fa-solid fa-rotate-right"></i> เริ่มเล่นควิซใหม่
+                                </button>
+                                <button id="back-to-flashcard-btn" class="back-btn" onclick="switchMode('flashcard')">
+                                    <i class="fa-regular fa-clone"></i> กลับไปโหมดแฟลชการ์ด
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="glossary-area" class="hidden fade-in">
+                        <div class="glossary-header">
+                            <div class="search-box-container">
+                                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                                <input type="text" id="glossary-search" placeholder="ค้นหาคำศัพท์ พินอิน หรือคำแปล..." oninput="filterGlossary()">
+                                <button id="clear-search-btn" class="clear-search-btn hidden" onclick="clearGlossarySearch()">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div id="glossary-grid" class="glossary-grid">
+                            <!-- จะแสดงรายการการ์ดคำศัพท์ผ่าน JS -->
+                        </div>
+                    </div>
+
+                    <div id="match-area" class="hidden fade-in">
+                        <div class="match-game-header">
+                            <div class="match-stats">
+                                <div class="stat-badge"><i class="fa-solid fa-clock"></i> เวลา: <span id="match-timer">00</span> วินาที</div>
+                                <div class="stat-badge"><i class="fa-solid fa-arrows-spin"></i> การกด: <span id="match-moves">00</span> ครั้ง</div>
+                            </div>
+                            <div class="match-actions">
+                                <button id="restart-match-btn" class="control-btn" onclick="restartMatchGame()">
+                                    <i class="fa-solid fa-rotate-right"></i> เริ่มเล่นใหม่
+                                </button>
+                            </div>
+                        </div>
+                        <div id="match-grid" class="match-grid">
+                            <!-- จะแสดงแผงการ์ดผ่าน JS -->
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ✍️ หน้าต่างป๊อปอัปฝึกลำดับขีด (Stroke Modal Overlay) -->
+    <div id="stroke-modal" class="modal-overlay hidden" onclick="closeStrokeModalOnOverlay(event)">
+        <div class="modal-content fade-in">
+            <button class="close-modal-btn" onclick="closeStrokeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2 class="modal-title">ฝึกลำดับขีดตัวจีน: <span id="stroke-char-display" class="hanzi-highlight">字</span></h2>
+            <div id="stroke-progress-label" style="font-family: 'Silkscreen', 'Noto Sans Thai', sans-serif; font-size: 0.9rem; font-weight: bold; color: var(--text-muted); margin-top: -10px; margin-bottom: 20px; text-align: center;">ตัวอักษรที่ 1 / 1</div>
+            
+            <div class="stroke-canvas-container">
+                <!-- HanziWriter Canvas Target -->
+                <div id="character-target"></div>
+            </div>
+            
+            <div class="stroke-controls">
+                <button onclick="animateStroke()" class="modal-control-btn"><i class="fa-solid fa-play"></i> เล่นแอนิเมชัน</button>
+                <button onclick="startStrokePractice()" class="modal-control-btn"><i class="fa-solid fa-pencil"></i> เริ่มฝึกเขียน</button>
+                <button onclick="resetStrokeWriter()" class="modal-control-btn"><i class="fa-solid fa-rotate-right"></i> เริ่มใหม่</button>
+            </div>
+            <p class="stroke-hint" id="stroke-hint">คลิก "เล่นแอนิเมชัน" เพื่อดูลำดับขีด หรือคลิก "เริ่มฝึกเขียน" เพื่อทดลองเขียนตามรอย!</p>
+        </div>
+    </div>
+
+    <!-- โหลดไลบรารี HanziWriter สำหรับฝึกลำดับขีดคัดอักษรจีน -->
+    <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@3.5/dist/hanzi-writer.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
