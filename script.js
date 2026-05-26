@@ -587,7 +587,11 @@ function selectCategory(category, btnElement) {
     // บังคับสลับไปหน้าแฟลชการ์ดเสมอเมื่อกดหมวดหมู่ใหม่
     switchMode('flashcard');
 
-    // Removed automatic sidebar toggle on mobile; user can open it manually if desired
+    // Auto‑close sidebar after selecting a category (especially on mobile)
+const sidebar = document.getElementById('sidebar');
+if (sidebar && !sidebar.classList.contains('closed')) {
+    toggleSidebar();
+}
 }
 
 function showWelcomeDashboard() {
