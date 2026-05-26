@@ -500,9 +500,7 @@ window.onload = () => {
     homeBtn.innerHTML = `<i class="fa-solid fa-house"></i> <span>หน้าหลัก (ด่าน)</span>`;
     homeBtn.onclick = () => {
         showWelcomeDashboard();
-        if (window.innerWidth <= 768) {
-            toggleSidebar();
-        }
+        // Do NOT auto-toggle sidebar on mobile; user can open manually
     };
     btnContainer.appendChild(homeBtn);
 
@@ -593,9 +591,7 @@ function selectCategory(category, btnElement) {
     // บังคับสลับไปหน้าแฟลชการ์ดเสมอเมื่อกดหมวดหมู่ใหม่
     switchMode('flashcard');
 
-    if (window.innerWidth <= 768) {
-        toggleSidebar();
-    }
+    // Removed automatic sidebar toggle on mobile; user can open it manually if desired
 }
 
 function showWelcomeDashboard() {
