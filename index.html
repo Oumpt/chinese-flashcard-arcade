@@ -54,7 +54,7 @@
             <div class="sidebar-header" onclick="showWelcomeDashboard()" style="cursor: pointer;" title="กลับไปหน้าหลักเลือกด่าน">
                 <i class="fa-solid fa-yin-yang logo-icon"></i>
                 <h2>Chinese Hub</h2>
-                <button class="close-sidebar-btn" onclick="toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
+                <button class="close-sidebar-btn" onclick="event.stopPropagation(); toggleSidebar()"><i class="fa-solid fa-xmark"></i></button>
             </div>
             
             <div class="sidebar-menu">
