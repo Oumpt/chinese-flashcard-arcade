@@ -495,9 +495,12 @@ window.onload = () => {
     homeBtn.className = 'cat-btn home-sidebar-btn selected'; // เริ่มต้นเลือกเป็นปุ่มหลักเพราะอยู่หน้าแรก
     homeBtn.innerHTML = `<i class="fa-solid fa-house"></i> <span>หน้าหลัก (ด่าน)</span>`;
     homeBtn.onclick = () => {
-        showWelcomeDashboard();
-        // Do NOT auto-toggle sidebar on mobile; user can open manually
-    };
+    showWelcomeDashboard();
+    const sidebar = document.getElementById('sidebar');
+    if (sidebar && !sidebar.classList.contains('closed')) {
+        toggleSidebar();
+    }
+};
     btnContainer.appendChild(homeBtn);
 
     for (const cat in vocabData) {
